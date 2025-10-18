@@ -2,26 +2,28 @@
 #include "./classes.cpp"
 #include "./sudoku_arrays.cpp"
 #include "./brute_force_solve.cpp"
+#include "./9_color_solve.cpp"
 
 using namespace std;
+
 
 int main() {
     Graph g;
     g.generate_graph();
-    g.fill_graph(sudoku_easy_1);
+    g.fill_graph(sudoku_easy_2);
 
     Sudoku sudoku(g);
     sudoku.display();
 
-    Sudoku solved = brute_force_solve(sudoku);
-    solved.display();
+    // Sudoku solved = brute_force_solve(sudoku);
+    // solved.display();
 
-    cout << "Total nodes: " << g.nodes.size() << endl;
-    cout << "Total branches (edges): " << g.branches.size() << endl;
-    if (solved.isSolved()){
-        cout << "Solvable" << endl;
+    nine_colorability_solve(sudoku);
+
+    if (sudoku.isSolved()){
+        sudoku.display();
     }else{
-        cout << "Not" << endl;
+        cout << "This sudoku is not solvable." << endl;
     }
     
     return 0;
